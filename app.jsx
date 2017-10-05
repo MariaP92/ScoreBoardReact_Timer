@@ -19,7 +19,7 @@ class Timer extends React.Component {
     
   }
   restart() {
-    clearTimeout(this.state.interval_fnc)
+    clearInterval(this.interval);
     this.setState({ timer: 0 })
   }
   render() {
