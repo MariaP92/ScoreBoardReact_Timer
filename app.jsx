@@ -13,7 +13,7 @@ class Timer extends React.Component {
   }
 
   timerStart() {
-    let counter = 0;
+    let counter = 1;
     this.interval = setInterval(() => {
       this.setState({ timer: counter })
       counter++;
