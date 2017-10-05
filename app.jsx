@@ -3,8 +3,10 @@
 class Timer extends React.Component {
   constructor(props) {
     super(props)
+    this.count = 0;
     this.timerStart = this.timerStart.bind(this);
     this.restart = this.restart.bind(this);
+    this.stopTimer = this.stopTimer.bind(this);
     this.state = {
       timer: 0
     }
@@ -15,28 +17,55 @@ class Timer extends React.Component {
     this.interval = setInterval(() => {
       this.setState({ timer: counter })
       counter++;
-    },100);
-    
+    }, 100);
+    this.count = 1;
+
   }
+  stopTimer() {
+    clearInterval(this.interval);
+    this.count = 0;
+  }
+
   restart() {
+    this.count = 0;
     clearInterval(this.interval);
     this.setState({ timer: 0 })
   }
   render() {
-    return (
-      <div className="stopwatch container-fluid">
-        <h2>STOPWATCH</h2>
-        <p className="stopwatch-time">{this.state.timer}</p>
-        <div className="row">
-          <div className="col-md-6">
-            <button onClick={this.timerStart}>START</button>
-          </div>
-          <div className="col-md-6">
-            <button onClick={this.restart}>RESET</button>
+
+    if (this.count == 0) {
+      return (
+        <div className="stopwatch container-fluid">
+          <h2>STOPWATCH</h2>
+          <p className="stopwatch-time">{this.state.timer}</p>
+          <div className="row">
+            <div className="col-md-6">
+              <button onClick={this.timerStart}>START</button>
+            </div>
+            <div className="col-md-6">
+              <button onClick={this.restart}>RESET</button>
+            </div>
           </div>
         </div>
-      </div>
-    );
+      );
+    }
+    else {
+      return (
+        <div className="stopwatch container-fluid">
+          <h2>STOPWATCH</h2>
+          <p className="stopwatch-time">{this.state.timer}</p>
+          <div className="row">
+            <div className="col-md-6">
+              <button onClick={this.stopTimer}>STOP</button>
+            </div>
+            <div className="col-md-6">
+              <button onClick={this.restart}>RESET</button>
+            </div>
+          </div>
+        </div>
+      );
+
+    }
   }
 
 }
